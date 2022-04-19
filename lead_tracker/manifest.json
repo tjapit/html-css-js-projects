@@ -1,0 +1,11 @@
+{
+    "name": "Leads tracker",
+    "description": "Keep track of your leads!",
+    "version": "1.0",
+    "permissions": ["activeTab"],
+    "action": {
+        "default_popup": "index.html",
+        "default_icon": "icon.png"
+    },
+    "manifest_version": 3
+}

@@ -1,0 +1,88 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap");
+:root {
+  --clr-neon: rgb(49, 172, 255);
+  --clr-bg: hsl(323 21% 16%);
+}
+
+*,
+*::before,
+*::after {
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+}
+
+body {
+  min-height: 100vh;
+  display: -ms-grid;
+  display: grid;
+  place-items: center;
+  background: var(--clr-bg);
+  font-family: "Poppins", "Balsamiq Sans", cursive;
+  color: var(--clr-neon);
+}
+
+body .neon-button {
+  font-size: clamp(2rem, calc(1rem + 2vw), 4rem);
+  display: inline-block;
+  cursor: pointer;
+  text-decoration: none;
+  color: var(--clr-neon);
+  border: var(--clr-neon) 0.125em solid;
+  padding: .25em 1em;
+  border-radius: .25em;
+  /* The glow */
+  text-shadow: 0 0 0.125em #7c7c7c, 0 0 0.45em currentColor;
+  -webkit-box-shadow: inset 0 0 1em 0 var(--clr-neon), 0 0 1em 0 var(--clr-neon);
+          box-shadow: inset 0 0 1em 0 var(--clr-neon), 0 0 1em 0 var(--clr-neon);
+  position: relative;
+  /* The shadow */
+  /* cool shit */
+}
+
+body .neon-button::before {
+  pointer-events: none;
+  content: "";
+  position: absolute;
+  background: var(--clr-neon);
+  top: 120%;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  -webkit-transform: perspective(0.75em) rotateX(40deg) scale(1, 0.25);
+          transform: perspective(0.75em) rotateX(40deg) scale(1, 0.25);
+  -webkit-filter: blur(1.5em);
+          filter: blur(1.5em);
+  opacity: .7;
+}
+
+body .neon-button::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  -webkit-box-shadow: 0 0 2em 0.5em var(--clr-neon);
+          box-shadow: 0 0 2em 0.5em var(--clr-neon);
+  opacity: 0;
+  -webkit-transition: opacity .5s linear;
+  transition: opacity .5s linear;
+  background-color: var(--clr-neon);
+  z-index: -1;
+}
+
+body .neon-button:hover, body .neon-button:focus {
+  color: var(--clr-bg);
+  text-shadow: none;
+}
+
+body .neon-button:hover::before, body .neon-button:focus::before {
+  -webkit-transition: opacity .5s linear;
+  transition: opacity .5s linear;
+  opacity: 1;
+}
+
+body .neon-button:hover::after, body .neon-button:focus::after {
+  opacity: 1;
+}
+/*# sourceMappingURL=index.css.map */

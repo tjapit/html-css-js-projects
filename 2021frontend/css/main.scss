@@ -1,0 +1,492 @@
+/* Mobile first design */
+// <CSS magic>Importing 'Poppins' from Google Fonts
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap');
+
+// <Syntax> *custom properties*, basically variables
+:root {
+    --primary-color: #007af3;
+}
+
+body {
+    // VS has a color selector, a fuckin color selector while typing in hex, how cool is that
+    background: #f2f2f2;
+    margin: 0;
+    font-family: 'Poppins';
+}
+
+/* Navigation Bar */
+// <Syntax> period (.) is a class, followed by the name of the class
+.navbar {
+    background: white;
+    padding: 1em;
+
+    .logo {
+        // <CSS fu> getting rid of underline from links "text-decoration"
+        text-decoration: none;
+        font-weight: bold;
+        color: black;
+        font-size: 1.2em;
+
+        // <CSS fu> setting color scheme with a variable
+        span {
+            color: var(--primary-color);
+        }
+    }
+
+    nav {
+        // on mobile, no navigation displayed (all in menu bar)
+        display: none;
+        // <Design> fixed in space, despite scrolling
+        position: fixed;
+        // <Design> always in front of everything with high z-index
+        z-index: 999;
+        // <Design> so it doesn't take up whole screen when menu bar extends
+        width: 66%;
+        right: 0;
+        top: 0;
+        background: #20272e;
+        height: 100vh;
+        padding: 1em;
+
+        ul.primary-nav {
+            margin-top: 5em;
+        }
+
+        li {
+            // <CSS> styling of each list items 
+            a {
+                color: white;
+                text-decoration: none;
+                // <CSS> must be blocked to have padding, margin, etc.
+                display: block;
+                padding: .5em;
+                font-size: 1.3em;
+                // text-align: right;
+
+                // <SASS> a:hover in CSS, stuff that happens when hovering over it
+                &:hover {
+                    font-weight: bold;
+                    // text-decoration: underline;
+                }
+            }
+        }
+
+        
+        .mobile-menu-exit {
+            float: right;
+            margin: .5em;
+            cursor: pointer;
+        }
+        
+    }
+    
+    // <JS> switching to this class from 'display: none'
+    nav.menu-btn {
+        display: block;
+    }
+
+    .container {
+        // flex is short for flexbox, kind of like layouts in Java GUI
+        display: flex;
+        place-content: space-between;
+    }
+
+    .mobile-menu {
+        // changes the cursor to a pointing finger
+        cursor: pointer;
+    }
+}
+
+a {
+    // all link dark-grey color
+    color: #444444;
+}
+
+ul {
+    // default disk list style (bulletpoints)
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+
+section {
+    // padding top-bottom and right-left, could also do all 4 (clockwise from top)
+    padding: 5em 2em;
+}
+
+.hero {
+    text-align: center;
+}
+
+.left-col {
+    
+    /* "It's Nitty & Gritty" subheading */
+    .subhead {
+        // <Design> Using contrast to affect the impression of the text, changing it from black -> grey made it less jarring even with a bold font and uppercase
+        text-transform: uppercase;
+        font-weight: bold;
+        color: gray;
+        letter-spacing: .3em;
+    }
+
+    /* Header */
+    h1 {
+        font-size: 2.5em;
+        line-height: 1.3em;
+        margin-top: .2em;
+    }
+
+    /* "Try for free" button */
+    .primary-cta {
+        // <CSS fu> again, color scheme with variable
+        background: var(--primary-color);
+        color: white;
+        // <Design> getting rid of underlines
+        text-decoration: none;
+        padding: .6em 1.2em;
+        font-size: 1.4em;
+        // <Design> just like fillets, make the box less box-y
+        border-radius: 5em;
+        font-weight: bold;
+        // <Design> ???
+        display: inline-block;
+    }
+
+    /* "Watch a video" button */
+    .watch-video-cta {
+        // <Design> to put it below the "Try for free" button
+        display: block;
+        margin-top: 1em;
+
+        img {
+            margin-right: .5em;
+        }
+    }
+
+}
+
+/* Illustration */
+.hero-img {
+    width: 70%;
+    margin-top: 3em;
+}
+
+/* App Features */
+section.features-section {
+    background: #20272e;
+    color: white;
+    
+    ul {
+        margin: 0;
+        padding-left: .1em;
+        display: grid;
+        // <CSS magic> automatically fits the items in the grid
+        grid-template-columns: repeat(auto-fit, minmax(19rem, 1fr));
+    
+        li {
+            font-size: 1.1em;
+            margin-bottom: 1em;
+            // make space for the check marks
+            margin-left: 2em;
+            // <Wuh> positioning the parent relative to the check mark???
+            position: relative;
+    
+            // <SASS> li:before in CSS, it's the stuff that comes 'before' the list item
+            &:before {
+                content: '';
+                // absolute positioning and border of the image
+                position: absolute;
+                width: 20px;
+                height: 20px;
+                background-image: url('../images/bullet.svg');
+                // s.t. the image is contained within the specified width & height
+                background-size: contain;
+                margin-right: .5em;
+                left: -2em;
+            }
+        }
+    }
+
+    img {
+        display: none;
+    }
+}
+
+/* Testimonials */
+section.testimonials-section {
+    background: var(--primary-color);
+
+    li {
+        // <Design> pick a darker shade to the bg (color scheme: #007af3)
+        background: #006bd6;
+        text-align: center;
+        padding: 2em 1em;
+        width: 80%;
+        // <Design> distance between each list item
+        margin: 0 auto 5em auto;
+        // <Design> rounded corners
+        border-radius: 1em;
+
+        img {
+            width: 5em;
+            height: 5em;
+            // <Design> make it look continuous to the background
+            border: 10px solid #006bd6;
+            // <Design> circular radius
+            border-radius: 50%;
+            // <Design> shift it up and out of the list item
+            margin-top: -4.5em;
+
+        }
+    }
+}
+
+/* Contacts */
+section.contact-section {
+    h2 {
+        font-size: 2em;
+    }
+    
+    label {
+        // <Design> again, display: block so it looks stacked top-bottom
+        display: block;
+        font-size: 1.2em;
+        // <Design> spacing from label to input area
+        margin-bottom: .5em;
+    }
+
+    input, textarea {
+        // <Design> s.t. the input area goes from edge to edge
+        width: 100%;
+        // <Design> bigger boxes
+        padding: .5em;
+        // <Design> spacing between
+        margin-bottom: 2em;
+        // <Design> rounded corners
+        border-radius: .3em;
+        // <Design> lighter border on the input box
+        border: 1px solid gray;
+        // <Design> to fix horizontal scrollbar with too much width
+        box-sizing: border-box;
+    }
+
+    // <Syntax> another way to reference a selector
+    input[type='submit'] {
+        // <Design> submit button accord with color scheme
+        background-color: var(--primary-color);
+        font-weight: bold;
+        // <Design> font color white
+        color: white;
+        font-size: 1.1em;
+        // <Design> pill box shaped
+        border-radius: 5em;
+        border: none;
+        // <Design> push map away from submit button
+        margin-bottom: 5em;
+        display: inline-block;
+        // <Design> expand the button so it doesn't look squished in
+        padding: .8em 2em;
+        // <Design> unset frees it from the 100% defined earlier
+        width: unset;
+        // <Design> cursor change to pointing finger when hovered over button
+        cursor: pointer;
+    }
+}
+
+/* Map */
+iframe {
+    width: 100%;
+    height: 300px;
+}
+
+
+/* Responsive design */
+@media only screen and (min-width: 768px) {
+// ruleset only applies after resizing window > 768px
+    .mobile-menu, .mobile-menu-exit {
+        // <CSS> hides menu bar
+        display: none;
+    }
+
+    .navbar .container {
+        display: grid;
+        // <CSS> divides navbar into columns
+        grid-template-columns: 180px auto;
+        justify-content: unset;
+    }
+
+    // <CSS> restyling the navigation from the mobile version
+    .navbar nav {
+        display: flex;
+        justify-content: space-between;
+        background: none;
+        position: unset;
+        height: auto;
+        width: 100%;
+        padding: 0;
+
+        ul {
+            // <???> still don't know what flex means (maybe so that they're beside each other?)
+            display: flex;
+
+            a {
+                color: black;
+                font-size: 1em;
+                padding: .1em 1em;
+            }
+        }
+
+        // <CSS> fixing the margin from line 52
+        ul.primary-nav {
+            margin: 0;
+        }
+        
+        // <CSS> Home button
+        li.current a {
+            font-weight: bold;
+        }
+        
+        // <CSS> Go Premium button styling
+        li.go-premium-cta a {
+            color: var(--primary-color);
+            border: 3px solid var(--primary-color);
+            font-weight: bold;
+            border-radius: 5em;
+            margin-top: -.2em;
+
+            &:hover {
+                background: var(--primary-color);
+                color: white;
+            }
+        }
+
+    }
+}
+
+@media only screen and (min-width: 1080px) {
+    .container {
+        width: 1080px;
+        // <CSS> a neat trick to center stuff
+        margin: 0 auto;
+    }
+
+    section {
+        padding: 10em 4em;
+    }
+
+    .hero .container {
+        // <CSS> so that they're next to each other
+        display: flex;
+        justify-content: space-between;
+        text-align: left;
+
+        .left-col {
+            margin: 3em 3em 0 5em;
+
+            h1 {
+                font-size: 3em;
+                width: 90%;
+            }
+        }
+
+        // <Design> resizing and repositioning image
+        .hero-img {
+            width: 30%;
+            margin-right: 8em;
+        }
+
+        // <Design> repositioning "Watch a video" wrt to "Try for free"
+        .hero-cta {
+            display: flex;
+
+            a.primary-cta {
+                margin-right: 1em;
+            }
+        }
+
+    }
+    
+    section.features-section {
+        position: relative;
+
+        ul.features-list {
+            display: block;
+            margin-left: 5em;
+
+            li {
+                font-size: 1.4em;
+
+                &:before {
+                    width: 30px;
+                    height: 30px;
+                }
+            }
+        }
+
+        img {
+            display: block;
+            position: absolute;
+            right: 0;
+            width: 350px;
+            bottom: -2em;
+        }
+    }
+
+    section.testimonials-section {
+        ul {
+            display: flex;
+
+            li {
+                margin: 0 1em 0 1em;
+            }
+        }
+    }
+
+    section.contact-section {
+        position: relative;
+
+        .container {
+            display: flex;
+
+            .contact-right {
+                position: absolute;
+                right: 0;
+                top: 0;
+                width:45%;
+                height: 100%;
+
+                iframe {
+                    height: 100%;
+                }
+            }
+        }
+    }
+}
+
+
+@media only screen and (min-width: 1450px) {
+    section.features-section {
+
+        &:before {
+            content: '';
+            position: absolute;
+            width: 10%;
+            height: 20em;
+            background: var(--primary-color);
+            left: 0;
+            top: -4em;
+            border-radius: 0 5em 5em 0;
+        }
+
+        &::after {
+            content: '';
+            position: absolute;
+            width: 200px;
+            height: 20em;
+            background: url('../images/dots.svg') no-repeat;
+            left: 4.5em;
+            top: 2em;
+        }
+
+    }
+}

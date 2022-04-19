@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>counter</title>
+        <link rel="stylesheet" href="index.css">
+    </head>
+    <body>
+        <div class="station-img"></div>
+        <div class="wrapper">
+            <section class="header">
+                <!-- Title -->
+                <h1 class="title">People entered:</h1>
+    
+                <!-- Counter -->
+                <h1 class="counter" id="counter"></h2>
+            </section>
+            
+            <!-- Buttons -->
+            <section class="buttons">
+                <!-- decrement button -->
+                <button class="decrement-btn" id="decrement-btn" onclick="decrement()">-</button>
+                <!-- increment button -->
+                <button class="increment-btn" id="increment-btn" onclick="increment()">+</button>
+                <!-- save button -->
+                <button class="save-btn" id="save-btn" onclick="save()">SAVE</button>
+                <!-- reset button -->
+                <button class="reset-btn" id="reset-btn" onclick="reset()">RESET</button>
+            </section>
+
+
+            <!-- previous entries -->
+            <section class="history">
+                <h1 class="prev-title">Previous entries:</h1>
+                <p class="prev-ent" id="prev-ent"></p>
+                <!-- reset previous entries -->
+                <button class="reset-prev" id="reset-prev" onclick="resetPrev()">RESET PREVIOUS</button>
+            </section>
+        </div>
+    </body>
+    <script src="index.js"></script>
+</html>

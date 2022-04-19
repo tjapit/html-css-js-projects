@@ -1,0 +1,220 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap');
+
+:root {
+    --clr-primary: #007af3;
+    --clr-darker-primary: #0063c7;
+    --clr-bg: #f2f2f2;
+    --clr-font: #ffffff;
+    --clr-darker-font: #303030;
+    --font-size-header: clamp(2rem, 5vw, 3rem); 
+    --font-size-text: clamp(1rem, 2vw, 1.2rem); 
+    --font-size-btn: clamp(.9rem, 2vw, 1.2rem);
+    --width-ideal: 430px;
+}
+
+body {
+    display: grid;
+    margin: 0;
+    padding: 1em;
+    font-family: 'Poppins', 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    background-color: var(--clr-bg);
+    min-width: var(--width-ideal);
+    
+    header {
+        h1 {
+            margin: .2em 0;
+            // padding-left: .2em;
+            font-style: italic;
+            font-size: var(--font-size-header);
+            color: var(--clr-font);
+            
+            /* styling the grey clashing background */
+            position: relative;
+            &::before {
+                content: '';
+                position: absolute;
+                top: -3em;
+                bottom: 0;
+                left: -2em;
+                right: 0;
+                height: 360%;
+                width: calc(var(--width-ideal) + 50px);
+                border-radius: 3em;
+
+                background-color: rgb(184, 184, 184);
+                z-index: -1;
+            }
+
+            span {
+                color: var(--clr-primary);
+            }
+        }
+    }
+
+    input {
+        border-style: solid;
+        border-color: var(--clr-primary);
+        border-width: 1px;
+        border-radius: 1em;
+        font-family: inherit;
+        font-size: var(--font-size-text);
+        padding-left: .8em;
+        width: clamp(300px, 77vw, 500px);
+        height: clamp(2em, 5vw, 2.5em);
+    }
+
+    section.buttons {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 1vw;
+        margin-top: .4em;
+
+        button {
+            font-family: inherit;
+            font-weight: bold;
+            font-size: var(--font-size-btn);
+            padding: .4em .7em;
+            border-style: none;
+            border-radius: 2em;
+            color: var(--clr-font);
+            background-color: var(--clr-primary);
+
+            &:hover,
+            &:focus {
+                cursor: pointer;
+                background-color: var(--clr-darker-primary);
+            }
+
+        }
+
+        button.clear-btn {
+            background-color: var(--clr-bg);
+            border: .1em solid var(--clr-primary);
+            color: var(--clr-primary);
+            
+            &:hover,
+            &:focus {
+                cursor: pointer;
+                background-color: var(--clr-primary);
+                color: var(--clr-font);
+            }
+        }
+    }
+
+    section.leads {
+        ul {
+            padding-left: 2em;
+            // list-style: none;
+            
+            p {
+                font-size: var(--font-size-text);
+                color: rgb(253, 60, 60);
+            }
+            
+            li {
+                margin-bottom: .4em;
+                font-size: var(--font-size-text);
+                white-space: nowrap;
+                // max-width: var(--width-ideal);
+                // again with this thing
+                position: relative;
+
+                &::marker {
+
+                    font-size: 1.4rem;
+                    color: var(--clr-primary);
+                }
+                
+                /* checkmark marker */
+                // &:before {
+                    //     content: '';
+                    //     position: absolute;
+                //     margin-left: 1em;
+                //     width: 18px;
+                //     height: 18px;
+                //     background-image: url('bullet.svg');
+                //     background-size: contain;
+                //     // margin-right: 2em;
+                //     left: -1em;
+                //     top: .25em;
+                // }
+                
+                a {
+                    // color: var(--clr-primary);
+                    left: -.3em;
+                    top: -.2em;
+                    color: var(--clr-darker-font);
+                    
+                    /* bold and underline ease-in */
+                    // text-decoration: underline .15em var(--clr-bg);
+                    // transition: text-decoration-color 300ms;
+                    // &:hover {
+                        //     color: var(--clr-darker-primary);
+                        //     font-weight: bold;
+                        //     text-decoration-color: var(--clr-darker-primary);
+                        // }
+                        
+                        
+                    // /* sliding underline w/ linear-gradient (for multi lines)
+                    //  * src: https://css-irl.info/animating-underlines/
+                    //  */
+                    // text-decoration: none;
+                    // background: linear-gradient(to right, var(--clr-primary), var(--clr-primary));
+                    // background-size: 0 .15em;
+                    // background-position: 100% 100%;
+                    // background-repeat: no-repeat;
+                    // transition: background-size 400ms;
+                    // &:hover, 
+                    // &:focus {
+                    //     background-size: 100% .15em;
+                    //     background-position: 0 100%;
+                    // }
+
+                    /* sliding text color (technique 3:clip-path)
+                     * src: https://css-tricks.com/4-ways-to-animate-the-color-of-a-text-link-on-hover/
+                     */
+                    text-decoration: none;
+                    // overflow: hidden;
+                    position: relative;
+                    &::before {
+                        content: attr(data-content);
+                        position: absolute;
+                        text-decoration: underline;
+
+                        color: var(--clr-primary);
+                        clip-path: polygon(0 0, 0 0, 0 100%, 0% 100%);
+                        transition: clip-path 200ms ease-in-out;
+                    }
+                    &:hover::before {
+                        clip-path: polygon(0 0, 100% 0, 100% 100%, 0% 100%);
+                    }
+
+
+                    // /* sliding underline w/ pseudo-elements */
+                    // text-decoration: none;
+                    // position: relative;
+                    // &:after {
+                    //     content: '';
+                    //     position: absolute;
+                    //     background-color: var(--clr-primary);
+                    //     width: 100%;
+                    //     height: .1em;
+                    //     left: 0;
+                    //     bottom: 0;
+                    //     transform: scaleX(0);
+                    //     transform-origin: right;
+                    //     transition: transform 500ms;
+                    // }
+                    // &:hover, 
+                    // &:focus {
+                    //     &::after {
+                    //         transform: scaleX(1);
+                    //         transform-origin: left;
+                    //     }
+                    // }
+                }
+            }
+
+        }
+    }
+}
