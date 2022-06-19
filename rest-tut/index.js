@@ -2,7 +2,9 @@ const express = require("express");
 const app = express();
 const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
+// to allow requests from other domains
 const cors = require("cors");
+// environment variable
 require("dotenv/config");
 
 // Import Routes
@@ -24,10 +26,10 @@ app.get("/", (req, res) => {
 //     res.send("We are on posts");
 // });
 
-// Connect To DB
+// Connect To DB with .env
 mongoose.connect(process.env.DB_CONN, () => {
-    console.log("connected to DB!");
+    console.log("Connected to DB...");
 });
 
 // How do we start listening to the server
-app.listen(3000, () => console.log("Server up and running!"));
+app.listen(3000, () => console.log("Server up and running..."));

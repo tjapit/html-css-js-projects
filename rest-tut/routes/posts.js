@@ -1,7 +1,5 @@
 // Routing, just like in Django with paths and includes
 const express = require("express");
-const { status } = require("express/lib/response");
-const { remove, update } = require("../models/Post");
 const router = express.Router();
 const Post = require("../models/Post");
 
