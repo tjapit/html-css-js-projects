@@ -1,6 +1,7 @@
 const express = require("express");
 const app = express();
 const mongoose = require("mongoose");
+// removed body-parser, express can already read json()
 // const bodyParser = require("body-parser");
 // to allow requests from other domains
 const cors = require("cors");
