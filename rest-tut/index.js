@@ -15,6 +15,8 @@ const authRoute = require("./routes/auth");
 // Middlewares: something that runs in-between routes
 app.use(cors());
 app.use(express.json()); // parses json body everytime a route is hit
+
+// Route Middlewares
 app.use("/api/posts", postsRoute);
 app.use("/api/user", authRoute);
 
