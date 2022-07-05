@@ -6,7 +6,8 @@ const mongoose = require("mongoose");
 // to allow requests from other domains
 const cors = require("cors");
 // environment variable
-require("dotenv/config");
+const dotenv = require("dotenv");
+dotenv.config()
 
 // Import Routes
 const postsRoute = require("./routes/posts");

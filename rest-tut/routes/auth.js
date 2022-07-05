@@ -2,6 +2,27 @@ const router = require("express").Router();
 const User = require("../models/User");
 const { registerValidation } = require("../validation");
 
+/* GET all User in DB */
+router.get("/", async (req, res) => {
+    try {
+        const users = await User.find();
+        res.json(users);
+    } catch (err) {
+        res.status(400).send({ message: err });
+    }
+});
+
+/* GET User by ID */
+router.get("/:userId", async (req, res) => {
+    try {
+        const user = await User.findById(req.params.userId);
+        res.json(user);
+    } catch (err) {
+        res.status(400).send({ message: err });
+    }
+});
+
+/* POST a User to DB */
 router.post("/register", async (req, res) => {
     // validate data before creating User
     const { error } = registerValidation(req.body);
@@ -24,6 +45,18 @@ router.post("/register", async (req, res) => {
     try {
         const savedUser = await user.save();
         res.send(savedUser);
+    } catch (err) {
+        res.status(400).send({ message: err });
+    }
+});
+
+/* DELETE a User from DB */
+router.delete("/:userId", async (req, res) => {
+    try {
+        const removedUser = await User.findByIdAndDelete(
+            req.params.userId
+        );
+        res.json(removedUser);
     } catch (err) {
         res.status(400).send({ message: err });
     }

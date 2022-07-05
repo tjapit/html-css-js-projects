@@ -75,8 +75,8 @@ router.patch("/:postId", async (req, res) => {
     try {
         const updatedPost = await Post.findByIdAndUpdate(
             req.params.postId,
+            // syntax for updating a post, double object
             {
-                // syntax for updating a post, double object
                 $set: {
                     title: req.body.title,
                     description: req.body.description,
