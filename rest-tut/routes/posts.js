@@ -60,10 +60,12 @@ router.post("/", async (req, res) => {
 router.delete("/:postId", async (req, res) => {
     try {
         // collections.remove() has been deprecated, use either:
-        // Post.deleteOne({ _id:req.params.postId }) 
+        // Post.deleteOne({ _id:req.params.postId })
         // OR
         // Post.findByIdAndDelete(req.params.postId)
-        const removedPost = await Post.findByIdAndDelete(req.params.postId)
+        const removedPost = await Post.findByIdAndDelete(
+            req.params.postId
+        );
         res.json(removedPost);
     } catch (err) {
         res.json({ message: err });
@@ -80,8 +82,8 @@ router.patch("/:postId", async (req, res) => {
                 $set: {
                     title: req.body.title,
                     description: req.body.description,
-                    date: Date.now()
-                }
+                    date: Date.now(),
+                },
             }
         );
         res.json(updatedPost);

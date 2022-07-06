@@ -1,5 +1,6 @@
 const router = require("express").Router();
 const User = require("../models/User");
+const jwt = require("jsonwebtoken");
 const bcrypt = require("bcryptjs");
 const {
     registerValidation,
@@ -53,7 +54,7 @@ router.post("/register", async (req, res) => {
     // try saving to DB
     try {
         const savedUser = await user.save();
-        res.send({ user: savedUser.id });
+        res.send({ _id: savedUser._id });
     } catch (err) {
         res.status(400).send({ message: err });
     }
@@ -72,6 +73,7 @@ router.post("/login", async (req, res) => {
     // User not in DB
     if (!user)
         return res.status(400).send("Incorrect email/password");
+
     // Checking validity of password
     const validPass = await bcrypt.compare(
         req.body.password,
@@ -80,8 +82,13 @@ router.post("/login", async (req, res) => {
     // Invalid password
     if (!validPass)
         return res.status(400).send("Incorrect email/password");
-    // Valid password
-    res.send("Logged in!")
+
+    // Create and assign a token
+    const token = jwt.sign(
+        { _id: user._id },
+        process.env.TOKEN_SECRET
+    );
+    res.header("auth-token", token).send("Successfully logged in!");
 });
 
 /* DELETE a User from DB */

@@ -5,9 +5,10 @@ const mongoose = require("mongoose");
 // const bodyParser = require("body-parser");
 // to allow requests from other domains
 const cors = require("cors");
+const verifyToken = require("./routes/verifyToken");
 // environment variable
 const dotenv = require("dotenv");
-dotenv.config()
+dotenv.config();
 
 // Import Routes
 const postsRoute = require("./routes/posts");
@@ -18,8 +19,10 @@ app.use(cors());
 app.use(express.json()); // parses json body everytime a route is hit
 
 // Route Middlewares
-app.use("/api/posts", postsRoute);
 app.use("/api/user", authRoute);
+// All routes below this require JWT token
+app.use(verifyToken);
+app.use("/api/posts", postsRoute);
 
 // ROUTES
 app.get("/", (req, res) => {
