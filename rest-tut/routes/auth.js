@@ -1,6 +1,11 @@
 const router = require("express").Router();
 const User = require("../models/User");
-const { registerValidation } = require("../validation");
+const bcrypt = require("bcryptjs");
+const {
+    registerValidation,
+    loginValidation,
+} = require("../validation");
+const { valid } = require("joi");
 
 /* GET all User in DB */
 router.get("/", async (req, res) => {
@@ -22,7 +27,7 @@ router.get("/:userId", async (req, res) => {
     }
 });
 
-/* POST a User to DB */
+/* Register a User to DB */
 router.post("/register", async (req, res) => {
     // validate data before creating User
     const { error } = registerValidation(req.body);
@@ -34,20 +39,49 @@ router.post("/register", async (req, res) => {
     if (emailExist)
         return res.status(400).send("Email already exists");
 
+    // Hash password
+    const salt = await bcrypt.genSalt(10);
+    const hashedPassword = await bcrypt.hash(req.body.password, salt);
+
     // create new User
     const user = new User({
         name: req.body.name,
         email: req.body.email,
-        password: req.body.password,
+        password: hashedPassword,
     });
 
     // try saving to DB
     try {
         const savedUser = await user.save();
-        res.send(savedUser);
+        res.send({ user: savedUser.id });
     } catch (err) {
         res.status(400).send({ message: err });
     }
+});
+
+/* Login a User */
+router.post("/login", async (req, res) => {
+    // validate login data
+    const { error } = loginValidation(req.body);
+    if (error) return res.status(400).send(error.details[0].message);
+
+    // check if User exists
+    const user = await User.findOne({
+        email: req.body.email,
+    });
+    // User not in DB
+    if (!user)
+        return res.status(400).send("Incorrect email/password");
+    // Checking validity of password
+    const validPass = await bcrypt.compare(
+        req.body.password,
+        user.password
+    );
+    // Invalid password
+    if (!validPass)
+        return res.status(400).send("Incorrect email/password");
+    // Valid password
+    res.send("Logged in!")
 });
 
 /* DELETE a User from DB */
