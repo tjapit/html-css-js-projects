@@ -3,13 +3,13 @@ const express = require("express");
 const router = express.Router();
 const postsController = require("../controllers/postsController");
 
-/* home route, get all existing posts and create new post */
+/* home route, get all existing Posts and create new Post */
 router
     .route("/")
     .get(postsController.getAllPosts)
     .post(postsController.createNewPost);
 
-/* route with post ID. Read, Update, and Delete existing post */
+/* route with Post ID. Read, Update, and Delete existing Post */
 router
     .route("/:postId")
     .get(postsController.getPost)
