@@ -12,14 +12,14 @@ dotenv.config();
 
 // Import Routes
 const postsRoute = require("./routes/posts");
-const authRoute = require("./routes/auth");
+const usersRoute = require("./routes/users");
 
 // Middlewares: something that runs in-between routes
 app.use(cors());
 app.use(express.json()); // parses json body everytime a route is hit
 
 // Route Middlewares
-app.use("/api/user", authRoute);
+app.use("/api/users", usersRoute);
 // All routes below this require JWT token
 app.use(verifyToken);
 app.use("/api/posts", postsRoute);
